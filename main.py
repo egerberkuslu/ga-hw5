@@ -26,15 +26,19 @@ if __name__ == '__main__':
                   "large_scale-optimum/knapPI_1_500_1000_1",
                   "large_scale-optimum/knapPI_1_1000_1000_1", "large_scale-optimum/knapPI_1_2000_1000_1",
                   "large_scale-optimum/knapPI_1_5000_1000_1", "large_scale-optimum/knapPI_1_10000_1000_1"]
+    for i in range(5):
+        instance = Instance(problems[0],optimums[0])
+        gen = random.randint(0,1000) + 500
+        popSize = random.randint(0,400) + 200
+        truncSel = random.choice([True, False])
+        print("Truncation", truncSel)
+        pbil = PBIL()
+        best = pbil.run(popSize, gen, 0.1 , popSize//5 , truncSel, instance)
+        print("Fitness", best.getFitness())
+        print("Weight", best.getWeight())
+        print("Genes", best.print())
 
-    instance = Instance(problems[0],optimums[0])
-    gen = random.randint(0,1000) + 500
-    popSize = random.randint(0,400) + 200
-    truncSel = random.choice([True, False])
-    pbil = PBIL()
-    best = pbil.run(popSize, gen, 0.1 , popSize//5 , False, instance)
-    print("Fitness", best.getFitness())
-    print("Weight", best.getWeight())
-    print("Genes", best.print())
-    print("Iteration", pbil.getGeneration() , " generations")
+        print("Difference Between Optimal Fitness", instance.getTargetFitness() - best.getFitness())
+        print("Iteration", pbil.getGeneration() , " generations")
+        print("\n\n\n\n")
 

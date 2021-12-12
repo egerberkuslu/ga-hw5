@@ -10,6 +10,7 @@ class Genome:
         self.weight = 0
         self.profit = 0
         self.penaltyValue = 10
+        self.fitness = 0
         self.changed = False
         self.genes = [False] * instance.getNItems()
         for i in range(len(self.genes)):
@@ -57,11 +58,13 @@ class Genome:
                         self.genes[index] = False
                         self.weight = self.weight - self.instance.getWeight(index)
                         self.profit = self.profit - self.instance.getProfit(index)
-
+        self.fitness = self.profit
         return self.profit
 
     def getSize(self):
         return len(self.genes)
+
+
 
     def setGene(self,index, value):
         self.genes[index] = value
@@ -88,9 +91,6 @@ class Genome:
             return (self.weight - self.instance.getCapacity()) < (rhs.weight - self.instance.getCapacity())
 
         return self.isFeasible()
-
-    def __lt__(self, SecondGenome):
-        return SecondGenome.getFitness() - self.getFitness()
 
     def isFeasible(self):
         self.getFitness()

@@ -3,10 +3,8 @@ import operator
 import random
 
 from Genome import Genome
-
-
-
-
+from Instance import Instance
+from functools import cmp_to_key
 
 class PBIL:
     def __init__(self):
@@ -59,8 +57,7 @@ class PBIL:
 
     def truncationSelection(self, selectionSize):
 
-
-        self.population = sorted(self.population, key=operator.attrgetter('profit'))
+        self.population = sorted(self.population, key=operator.attrgetter("fitness"), reverse=True)
 
         truncated = copy.deepcopy(self.population)[:selectionSize]
         return truncated
